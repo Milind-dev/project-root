@@ -1,16 +1,6 @@
 import onboardingModel from "../models/onboarding.model.js";
 
-export const empOnBoarding = async (req, res) => {
-  try {
-    const { title, Description } = req.body;
-    if (!title || !Description) {
-      return res.status(400).json({ message: "title wrong" });
-    }
-    return res.status(200).json({ message: "title ok" });
-  } catch (err) {
-    res.status(500).json({ message: "onboarding 500 status" });
-  }
-};
+// 
 export const empOnBoardingCreate = async (req, res) => {
   try {
     const validationCheck = new onboardingModel({
@@ -18,8 +8,6 @@ export const empOnBoardingCreate = async (req, res) => {
       description: req.body.description,
       fields: Array.isArray(req.body.fields) ? req.body.fields : [],
     });
-
-    
 
     //validateSync is use for mongo db errors without use it manually
     const validationError = validationCheck.validateSync();
@@ -34,7 +22,7 @@ export const empOnBoardingCreate = async (req, res) => {
       return res.status(400).json({
         message: "validation failed",
         errors,
-        success:false
+        success: false,
       });
     }
 
@@ -43,7 +31,7 @@ export const empOnBoardingCreate = async (req, res) => {
     return res.status(201).json({
       message: "Created successfully",
       data: saved,
-      success:"false"
+      success: "false",
     });
 
     // return res.status(201).json({
@@ -110,13 +98,56 @@ export const empOnBoardingCreate = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: "onboarding status 500" });
   }
+};1
+
+export const empOnBoardingPage = async (req, res) => {
+
+  try {
+    const page = Number(req.query.page) > 0 ? Number(req.query.page) : 1;
+    const limit = Number(req.query.limit) > 0 ? Number(req.query.limit) : 10;
+    // const pages = (page - 1) * limit;
+
+    const total = await onboardingModel.countDocuments();
+    const sortOrder = req.query.sort === "asc" ? -1:1;
+    
+
+    const skipingpage = (page, limit) => {
+      if (!page || page < 1) page = 1;
+      if (!limit || limit < 1) limit = 10;
+       return (page - 1) * limit;
+    };
+
+    const data = await onboardingModel
+      .find()
+      // .sort({ createdAt: -1 }) //see older one to newer one
+      // .sort(sortOrder)
+      .sort({ createdAt: sortOrder }) 
+
+      .skip(skipingpage(page, limit))
+      .limit(limit)
+      .lean(); //lean increase performance 2 to 3 times findind
+
+
+    return res.status(200).json({
+      message: "Fetched onboarding forms",
+      page,
+      limit,
+      total,
+      totalPages: Math.ceil(total / limit),
+      count: data.length,
+      sortOrder,
+      data,
+    });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: "server status 500 error", error: err.message });
+  }
 };
-
-
 
 export const empOnBoardingGet = async (req, res) => {
   try {
-    const data = await onboardingModel.find(); // <-- same as findAll()
+    const data = await onboardingModel.find(); 
 
     return res.status(200).json({
       message: "All EmpOnboarding Data",
@@ -124,8 +155,20 @@ export const empOnBoardingGet = async (req, res) => {
       data,
     });
   } catch (err) {
-    res.status(500).json({ message: "server status 500 error", error: err.message });
+    res
+      .status(500)
+      .json({ message: "server status 500 error", error: err.message });
   }
 };
 
-
+// export const empOnBoardingGet = async (req, res) => {
+//   try {
+//     const { title, Description } = req.body;
+//     if (!title || !Description) {
+//       return res.status(400).json({ message: "title wrong" });
+//     }
+//     return res.status(200).json({ message: "title ok" });
+//   } catch (err) {
+//     res.status(500).json({ message: "onboarding 500 status" });
+//   }
+// };

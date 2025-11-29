@@ -1,11 +1,15 @@
 
 import { Router } from "express";
-import { empOnBoarding, empOnBoardingCreate, empOnBoardingGet } from "../controllers/onboardingController.js";
+import {
+    empOnBoardingCreate,
+    empOnBoardingGet,
+    empOnBoardingPage,
+} from "../controllers/onboardingController.js";
 
 const router = Router();
 router.post("/empFormSchemaCreate", empOnBoardingCreate);
-router.get("/empFormSchemaGet",empOnBoardingGet);
-router.get("/empFormSchemaGet/{id}",empOnBoardingGet);
+router.get("/empFormSchemaGet", empOnBoardingGet);
+router.get("/empFormSchemaGetPages/empFormSchemaGetPages", empOnBoardingPage);
 
 // router.get("/empFormSchema", empOnBoarding);
 
