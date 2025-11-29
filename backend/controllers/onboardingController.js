@@ -124,6 +124,8 @@ export const empOnBoardingGet = async (req, res) => {
       data,
     });
   } catch (err) {
-    res.status(500).json({ message: "Server 500 error", error: err.message });
+    res.status(500).json({ message: "server status 500 error", error: err.message });
   }
 };
+
+
