@@ -1,53 +1,72 @@
 import mongoose from "mongoose";
 
-const onboardingSchema = new mongoose.Schema({
-  // employee: {
-  //   type: String,
-  //   id: String,
-  //   minlength: 5,
-  //   maxlength: 15,
-  //   required: true,
-  // },
-  title: {
-    type: String,
-    required: true,
-    minlenth: 5,
-    maxlength: 15,
-    trim: true,
-  },
-  Description: {
+const fieldSchema = new mongoose.Schema({
+  label: {
     type: String,
     required: false,
-    minlength: 5,
-    maxlength: 15,
-    trim: true,
+    minlength: 1,
+    maxlength: 50,
+    trim: true
   },
-  fields: [
-    {
-      label: {
-        type: String,
-        required: false,
-        minlength: 5,
-        maxlength: 15,
-      },
+/* 
+  type is special in mongoose that why you cant create dirtectly type:{type:Sting} 
+  but create type:String but its not good process to validate */
+  type: {
+    type: String,
+    enum: ["text", "number", "select", "date", "textarea", "switch"],
+    required: false
+  },
+
+  placeholder: {
+    type: String,
+    minlength: 0,
+    maxlength: 100,
+    trim: true
+  },
+
+  options: {
+    type: [String],
+    default: undefined
+  },
+
+  validation: {
+    required: { type: Boolean, default: false },
+    minLength: { type: Number },
+    maxLength: { type: Number },
+    pattern: { type: String },     // store pattern as string; you can convert to RegExp when using
+    minDate: { type: Date },
+    maxDate: { type: Date }
+  },
+
+  phone: {
+    type: String,
+    required: false,
+    match: /^(\+91)?[6-9][0-9]{9}$/
+  }
+}, { _id: false }); // optional: don't create an _id for every field object
+
+
+const onboardingSchema = new mongoose.Schema(
+  {
+    title: {
       type: String,
-      placeholder: {
-        type: String,
-        minlength: 5,
-        maxlength: 15,
-      },
-      Option: [String],
-      validation: {
-        required: true,
-        minLength: 10,
-        maxLength: 10,
-        pattern: "^[0-9]+$",
-        minDate: "2024-01-01",
-        maxDate: "2024-12-31",
-      },
-      phone: "^[0-9]+$",
+      required: [true, "Title is required"],
+      trim: true,
+      minlength: [5, "Title must be at least 5 characters"],
+      maxlength: [15, "itle must be less than 15 characters"],
     },
-  ],
-});
+    description: {
+      type: String,
+      required: [true, "Description is required"],
+      trim: true,
+      minlength: [5, "Description must be at least 5 characters"],
+      maxlength: [15, "Description must be less than 15 characters"],
+    },
+    fields: [fieldSchema],
+  },
+  {
+    timestamps: true,
+  }
+);
 
 export default mongoose.model("onboardingSchema", onboardingSchema);
