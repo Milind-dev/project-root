@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 
 const onboardingSchema = new mongoose.Schema({
-  employee: {
-    type: String,
-    id: String,
-    minlength: 5,
-    maxlength: 15,
-    required: true,
-  },
+  // employee: {
+  //   type: String,
+  //   id: String,
+  //   minlength: 5,
+  //   maxlength: 15,
+  //   required: true,
+  // },
   title: {
     type: String,
     required: true,

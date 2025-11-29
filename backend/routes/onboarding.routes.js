@@ -1,8 +1,10 @@
 
 import { Router } from "express";
-import { formSchemaHandler } from "./form.routes.js";
+import { empOnBoarding, empOnBoardingCreate } from "../controllers/onboardingController.js";
 
 const router = Router();
-router.get("/formschema",formSchemaHandler);
+router.get("/formschema", empOnBoarding);
+router.post("/formschemaCreate", empOnBoardingCreate);
+
 
 export default router;
