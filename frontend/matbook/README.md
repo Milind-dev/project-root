@@ -1,70 +1,208 @@
-# Getting Started with Create React App
+# Matbook
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project have employee onboarding project. here employee filling details after filling details employee submit data. Here Title and Description of employee.
 
-## Available Scripts
+## Requirement 
 
-In the project directory, you can run:
+In this project one of form created that have fields after filing that field like title,description , phone , fullname , dropdown are fill and submit then its store to database. after seeing  details route. there see all details which are fill from onboarding. 
+phone , fullname and drodown that field come from database means validate against db.
 
-### `npm start`
+ Techstack use - `nodejs`,`javascript`,`tanstack`,`express`,`mongodb`,`tailwindCSS`
+## Frontend
+### `Details`
+On details router which are link. show in assignment when click first default data show to screen. that data are by default and show to screen.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### `Searching`
+here input search value of large dataset whenever input hit it will find value. value find by title.
+ 
+### `Sorting`
+sorting value by asc and desc that value by createdBy.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### `pagination`
+pagination are 1 to 20 limits. first page are default. if its user are on first page then back button are disabled. if its last page then next button are disabled.
 
-### `npm test`
+## BACKEND
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### `Node js & DB(MONGO DB) `
+As requirement all frontend side input, label, select validate against db means its frontend side input type  select come from db.
+here also title, description , select , fullname, phone are empty then its show required that validation are fully developed backend side.
+get , post , sorting , which are show in frontend side are fully come from backend side.
 
-### `npm run build`
+### `validate errors only on phone , fullname,  select when empty `
+validate all errors are perfectly fine in backend side. but frontend side i have only there errors show when empty
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## install node_modules
+  npm install 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## git 
+here multiple branch 
+main full code 
 
-### `npm run eject`
+### command using
+`git add .`
+`git commit -m "comment"`
+`git push` 
+if you are in another branch then go main branch then pull branch
+`git pull origin branch_name`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Some data show (its exclude but to see if its not work on your side)
+this is success data
+`sort, page, limit`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+`http://localhost:5000/api/empFormSchemaGetPages/empFormSchemaGetPages?page=1&limit=10&sort=asc` 
+```
+sorting,pagination,asc/desc
+-----------
+http://localhost:5000/api/empFormSchemaGetPages/empFormSchemaGetPages?page=1&limit=10&sort=asc
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+"{
+    "message": "Fetched onboarding forms",
+    "page": 1,
+    "limit": 10,
+    "total": 22,
+    "totalPages": 3,
+    "count": 10,
+    "sortOrder": 1,
+    "data": [
+        {
+            "_id": "692c3318188e1bf003cfe2f1",
+            "title": "chip and tale",
+            "description": "Construction",
+            "fields": [
+                {
+                    "label": "Full name",
+                    "type": "text",
+                    "placeholder": "Enter full name",
+                    "validation": {
+                        "required": true,
+                        "minLength": 3,
+                        "maxLength": 50
+                    }
+                },
+                {
+                    "label": "Phone",
+                    "type": "text",
+                    "validation": {
+                        "required": true
+                    },
+                },
+                {
+                    "label": "Role",
+                    "type": "select",
+                    "options": [
+                        "dev",
+                        "qa",
+                        "pm"
+                    ],
+                    "validation": {
+                        "required": true
+                    }
+                }
+            ],
+            "createdAt": "2025-11-30T12:05:44.643Z",
+            "updatedAt": "2025-11-30T12:05:44.643Z",
+            "__v": 0
+        },"
+```
+`http://localhost:5000/api/empFormSchemaCreate` 
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
 
-## Learn More
+url = http://localhost:5000/api/empFormSchemaCreate
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+create form data
+-----------------
+{
+    "title": "L&TConstruction",
+    "description": "Construction",
+    "fields": [
+      {
+        "label": "FullName",
+        "type": "text",
+        "placeholder": "Enter full name",
+        "validation": { "required": true, "minLength": 3, "maxLength": 50 }
+      },
+      {
+        "label": "Phone",
+        "type": "text",
+        "phone": "+919876543210",
+        "validation": { "required": true }
+      },
+      {
+        "label": "Role",
+        "type": "select",
+        "options": ["dev","qa","pm"],
+        "validation": { "required": true }
+      }
+    ]
+  }
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+`http://localhost:5000/api/empFormSchemaGetPages/empFormSchemaGetPages`
+```
+All details fetch
+------------------
 
-### Code Splitting
+url = http://localhost:5000/api/empFormSchemaGetPages/empFormSchemaGetPages
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+{
+    "message": "Fetched onboarding forms",
+    "page": 1,
+    "limit": 10,
+    "total": 28,
+    "totalPages": 3,
+    "count": 10,
+    "sortOrder": -1,
+    "data": [
+        {
+            "_id": "692ca0c49f431cc25ac7f554",
+            "title": "L&dsdddd",
+            "description": "Constructiondd",
+            "fields": [
+                {
+                    "label": "FullName",
+                    "type": "text",
+                    "placeholder": "Enter full name",
+                    "validation": {
+                        "required": true,
+                        "minLength": 3,
+                        "maxLength": 50
+                    }
+                },
+                {
+                    "label": "Phone",
+                    "type": "text",
+                    "validation": {
+                        "required": true
+                    }
+                },
+                {
+                    "label": "Role",
+                    "type": "select",
+                    "options": [
+                        "dev",
+                        "qa",
+                        "pm"
+                    ],
+                    "validation": {
+                        "required": true
+                    }
+                }
+            ],
+            "createdAt": "2025-11-30T19:53:40.403Z",
+            "updatedAt": "2025-11-30T19:53:40.403Z",
+            "__v": 0
+        }
+}
 
-### Analyzing the Bundle Size
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Deploy
 
-### Making a Progressive Web App
+i try to deploy this on vercel some problem come so i am not deploy i put some images and video on assest folder in frontend folder.
+```https://github.com/Milind-dev/project-root```
+[project-root](https://github.com/Milind-dev/project-root)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
