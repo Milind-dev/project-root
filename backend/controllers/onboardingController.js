@@ -108,7 +108,7 @@ export const empOnBoardingPage = async (req, res) => {
     // const pages = (page - 1) * limit;
 
     const total = await onboardingModel.countDocuments();
-    const sortOrder = req.query.sort === "asc" ? -1:1;
+    const sortOrder = req.query.sort === "asc" ? 1:-1;
     
 
     const skipingpage = (page, limit) => {
