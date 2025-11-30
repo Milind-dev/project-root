@@ -18,7 +18,6 @@ export default function OnboardingDetails() {
   const [debounce, setDebounceTitle] = useState("");
   const [filteredData, setFilteredData] = useState([]);
 
-
   const { data, isLoading, isError } = useQuery({
     queryKey: ["empFormSchemaGetPages", searchtitle],
     queryFn: fetchUsers,
@@ -32,16 +31,10 @@ export default function OnboardingDetails() {
 
   const filteringSearchData = () => {
     if(!debounce) return setFilteredData(data);
-    const searchtitle = debounce.toLowerCase();
-    console.log(searchtitle)
-
-
-    const searchtitling = debounce.toLowerCase();
     
+    const searchItem = debounce.toLowerCase();
     const result = data?.filter((item) => {
-      return (
-        item.title?.toLowerCase().includes(searchtitling) 
-      );
+      return item.title?.toLowerCase().includes(searchItem);
     });
     setFilteredData(result);
   }
@@ -51,13 +44,11 @@ export default function OnboardingDetails() {
       setDebounceTitle(searchtitle.trim());
       // console.log("setbounce",searchtitle.trim())
     }, 500);
-
     return () => clearTimeout(timer);
   }, [searchtitle]);
 
   useEffect(() => {
     filteringSearchData()
-
   },[debounce,data])
 
   return (
@@ -98,7 +89,6 @@ export default function OnboardingDetails() {
                   </td>
                 </tr>
               ) : (
-                // data?.map((item) => (
                 filteredData?.map((item) => (
                   <tr
                     key={item._id}

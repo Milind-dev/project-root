@@ -1,6 +1,6 @@
 import './App.css';
-import OnboardingDetails from './pages/OnboardingDetails';
-// import OnboardingForm  from './pages/OnboardingForm';
+// import OnboardingDetails from './pages/OnboardingDetails';
+import OnboardingForm  from './pages/OnboardingForm';
 
 function App() {
   // console.log(process.env)
@@ -8,8 +8,8 @@ function App() {
 
   return (
     <div className="App">
-      {/* <OnboardingForm /> */}
-      <OnboardingDetails />
+      <OnboardingForm />
+      {/* <OnboardingDetails /> */}
     </div>
   );
 }
