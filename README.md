@@ -200,7 +200,7 @@ url = http://localhost:5000/api/empFormSchemaGetPages/empFormSchemaGetPages
 
 ## Deploy
 
-i try to deploy this on vercel some problem come so i am not deploy i put some images and video on assest folder in frontend folder.
+i try to deploy this on vercel some problem come so i am not deploy i put some images on assest folder in frontend folder. i have record record video i am not have any mail or link to share. if its possible i share it.
 ```https://github.com/Milind-dev/project-root```
 [project-root](https://github.com/Milind-dev/project-root)
 
