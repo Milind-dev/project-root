@@ -1,4 +1,6 @@
 import './App.css';
+import OnboardingDetails from './pages/OnboardingDetails';
+// import OnboardingForm  from './pages/OnboardingForm';
 
 function App() {
   // console.log(process.env)
@@ -6,7 +8,8 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className="text-3xl font-bold text-red-700">Hello world!</h1>
+      {/* <OnboardingForm /> */}
+      <OnboardingDetails />
     </div>
   );
 }

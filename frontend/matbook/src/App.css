@@ -1,5 +1,12 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
+  /* font-size: 16px; */
+  font-family: "Montserrat", sans-serif;
+  /* font-family: "Playwrite US Trad Guides", cursive; */
+  /* background-color: whitesmoke */
+  background-color: white;
+  border: 1px solid gray;
+;
 }
 
 .App-logo {
