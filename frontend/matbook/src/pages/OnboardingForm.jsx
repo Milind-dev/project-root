@@ -11,17 +11,18 @@ const makeKey = (label) =>
     .replace(/\s+/g, "_")
     .replace(/[^\w_]/g, "");
 
-// --- API helpers ---
+const url = process.env.REACT_APP_API_URL;
+  
 const fetchSchema = async () => {
-  const res = await axios.get(
-    "http://localhost:5000/api/empFormSchemaGetPages/empFormSchemaGetPages"
+     const res = await axios.get(
+    `${url}/api/empFormSchemaGetPages/empFormSchemaGetPages`
   );
   return res.data?.data ?? res.data;
 };
 
 const submitResponse = async (body) => {
   const res = await axios.post(
-    "http://localhost:5000/api/empFormSchemaCreate",
+    `${url}/api/empFormSchemaCreate`,
     body
   );
   return res.data;
